@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "book-keyword-lab"
+version = "1.0.0"
+description = "Author CLI for choosing book keywords and categories with local rule-file heuristics. By Asdale Dynamics, LLC."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "Asdale Dynamics, LLC" }]
+keywords = ["kdp", "keywords", "amazon", "publishing", "cli", "book"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Office/Business",
+]
+dependencies = ["PyYAML>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.urls]
+Homepage = "https://dylanasdale.github.io"
+
+[project.scripts]
+bkwl = "bookkeywordlab.cli:main"
+book-keyword-lab = "bookkeywordlab.cli:main"
+
+[tool.setuptools]
+packages = ["bookkeywordlab"]
+
+[tool.setuptools.package-data]
+bookkeywordlab = ["defaults/*.yaml", "defaults/*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

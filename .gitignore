@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.venv/
+venv/
+.coverage
+book-keyword-lab-state.json
+book-keyword-lab-export*.txt
+book-keyword-lab-export*.md

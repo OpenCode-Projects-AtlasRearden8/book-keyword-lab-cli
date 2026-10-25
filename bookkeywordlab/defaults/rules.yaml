@@ -1,0 +1,230 @@
+# Book Keyword Lab - built-in heuristics. Edit freely (this file is local, yours, offline).
+# Sentiment is plain on purpose: every entry is a note future-you can read before publishing.
+# Load a copy with:  bkwl score --rules my-rules.yaml   (or set --rules on any command)
+
+profile:
+  name: The Massive AI Manual (beginner AI education)
+  blurb: >-
+    Explain AI like a friend would: plain English, step by step, never condescending.
+    Beginner manuals, local AI, free AI coding, agents and MCP, GitHub, automation,
+    and gentle life-admin help for real people.
+  brainstorm_theme: >-
+    The Massive AI Manual, a beginner-friendly AI book explaining AI tools, agents and
+    MCP, local AI, free AI coding with GitHub Copilot-free workflows, automation, and
+    privacy basics in plain English for absolute beginners
+
+scoring:
+  base: 50
+  length:
+    min_chars: 3
+    sweet_min_words: 2
+    sweet_max_words: 6
+  boosts:
+    - pattern: "for beginners"
+      weight: 6
+      reason: beginner-audience language is exactly who this book serves
+    - pattern: "beginner"
+      weight: 5
+      reason: beginner-friendly promise matches the book's style
+    - pattern: "step by step"
+      weight: 6
+      reason: step-by-step guides are a strong buyer signal
+    - pattern: "plain english"
+      weight: 6
+      reason: signature promise of the book - how a friend would explain it
+    - pattern: "made simple"
+      weight: 5
+      reason: reader-friendly framing people actively search
+    - pattern: "made easy"
+      weight: 5
+      reason: reader-friendly framing people actively search
+    - pattern: "explained"
+      weight: 4
+      reason: explainer intent fits the book's promise
+    - pattern: "walkthrough"
+      weight: 4
+      reason: practical, hands-on intent
+    - pattern: "guide"
+      weight: 3
+      reason: guide-style phrases signal a teachable book
+    - pattern: "handbook"
+      weight: 4
+      reason: handbook phrasing signals a complete, reference-style manual
+    - pattern: "manual"
+      weight: 4
+      reason: echoes the book title and manual intent
+    - pattern: "basics"
+      weight: 3
+      reason: beginners ask for the basics
+    - pattern: '\bai\b'
+      regex: true
+      weight: 2
+      reason: core topic word for this book
+    - pattern: "artificial intelligence"
+      weight: 4
+      reason: the formal phrase people still type most
+    - pattern: "local ai"
+      weight: 5
+      reason: on-device AI is a fast-growing beginner niche
+    - pattern: "offline"
+      weight: 3
+      reason: privacy-minded readers love offline workflows
+    - pattern: "llm"
+      weight: 3
+      reason: common in technical-but-curious searches
+    - pattern: "prompt"
+      weight: 4
+      reason: prompting is a big beginner topic
+    - pattern: "agents"
+      weight: 3
+      reason: AI agents are a rising search area
+    - pattern: "automation"
+      weight: 3
+      reason: automation is a practical, buying intent
+    - pattern: "workflow"
+      weight: 2
+      reason: practical productivity framing
+    - pattern: "github"
+      weight: 4
+      reason: free AI coding and collaboration hub readers care about
+    - pattern: "free"
+      weight: 3
+      reason: cost-sensitive readers search for free options
+    - pattern: "for work"
+      weight: 4
+      reason: workplace use is a strong buyer intent
+    - pattern: "productivity"
+      weight: 3
+      reason: everyday win the book teaches
+    - pattern: "privacy"
+      weight: 4
+      reason: privacy basics are a core chapter and a real search area
+    - pattern: "non coder"
+      weight: 4
+      reason: speaks directly to the book's audience
+    - pattern: "non-technical"
+      weight: 4
+      reason: speaks directly to the book's audience
+    - pattern: "healthcare"
+      weight: 3
+      reason: author's audience includes healthcare workers
+    - pattern: "nurses"
+      weight: 4
+      reason: the author speaks from a nursing background
+    - pattern: "authors"
+      weight: 4
+      reason: AI for authors is a natural companion topic
+    - pattern: "chromebook"
+      weight: 3
+      reason: budget-friendly beginner hardware angle
+  penalties:
+    - pattern: "stuff"
+      weight: -4
+      reason: too vague to match real searches
+    - pattern: "things"
+      weight: -4
+      reason: too vague to match real searches
+    - pattern: "misc"
+      weight: -4
+      reason: too vague to match real searches
+    - pattern: "etc"
+      weight: -5
+      reason: filler, not a search phrase
+    - pattern: "best"
+      weight: -3
+      reason: hype wording reads spammy without proof
+    - pattern: "ultimate"
+      weight: -3
+      reason: hype wording reads spammy without proof
+    - pattern: "insane"
+      weight: -3
+      reason: hype wording reads spammy
+    - pattern: "amazing"
+      weight: -3
+      reason: hype wording reads spammy
+    - pattern: "secret"
+      weight: -3
+      reason: clickbait framing lowers trust
+    - pattern: "pdf"
+      weight: -3
+      reason: PDF-seekers rarely convert to a paperback sale
+    - pattern: "your own"
+      weight: -2
+      reason: keeps the phrase generic; prefer concrete nouns
+
+clustering:
+  measure: containment
+  threshold: 0.5
+
+planner:
+  slots: 7
+  slot_chars: 50
+  primary_categories: 3
+  alternate_categories: 2
+
+# Amazon KDP rules of thumb: no brand names in keywords, no claims, no adult or
+# substance terms, no personal data. Each rule is one screen the CLI applies.
+risk:
+  rules:
+    - id: brand-name
+      severity: high
+      regex: true
+      pattern: '\b(chat ?gpt\w*|openai\w*|gpt-?\d|gpt\b|claude\w*|anthropic|gemini\w*|copilot|microsoft|google|apple|ollama|lm ?studio|hugging ?face|midjourney\w*|dall-?e|elevenlabs|github|gitlab|kindle\w*|amazon\w*|kdp|notion|obsidian|grammarly|excel|outlook|slack|zoom|for dummies|ios|android)\b'
+      reason: brand names are not allowed in KDP keyword slots
+    - id: overpromise
+      severity: high
+      regex: true
+      pattern: '\b(guaranteed?|bestseller|best ?seller|#1|number one|overnight|get rich|passive income in|cure|cures|healing|heal\b|diagnos\w*|treat\b|treats|treatment|prescri\w*|stop smoking|quit smoking|weight loss)\b'
+      reason: claims like these can get a listing flagged or rejected
+    - id: privacy-or-secrets
+      severity: high
+      regex: true
+      pattern: '\b(password|passwords|api ?key|api ?keys|sk-[a-zA-Z0-9]{6,}|credit card|ssn)\b|\w+@\w+\.\w+'
+      reason: personal data or credentials must never go into keywords
+    - id: adult-or-substances
+      severity: high
+      regex: true
+      pattern: '\b(nsfw|xxx|porn|escort|cannabis|marijuana|weed|vape|casino)\b'
+      reason: adult or substance keywords can block the listing
+    - id: spammy
+      severity: medium
+      regex: true
+      pattern: '\b(cheap|click ?here|download ?now|free ebook|watch this|limited time)\b'
+      reason: reads ad-like; keep keywords honest and searchable
+    - id: vague-year
+      severity: low
+      regex: true
+      pattern: '\b(2023|2024|latest)\b'
+      reason: stamping years dates quickly; prefer evergreen phrasing
+
+# Suggested big-picture shelves. KDP renames shelves now and then, so the CLI
+# treats these as a shortlist to verify against the live category picker.
+categories:
+  - name: Computers & Technology > Computer Science > Artificial Intelligence
+    fit_terms: [ai, artificial intelligence, machine learning, llm, prompt, agents, chatbot, technology]
+    weight: 1.1
+    note: primary shelf for a plain-English AI manual
+  - name: Computers & Technology > Reference & How-To
+    fit_terms: [guide, handbook, manual, basics, walkthrough, beginners, reference]
+    weight: 1.0
+    note: how-to readers browse here looking for gentle starts
+  - name: Computers & Technology > Cybersecurity & Privacy
+    fit_terms: [privacy, security, offline, local ai, protect, data]
+    weight: 1.0
+    note: fits the privacy and local-first chapters
+  - name: Education & Teaching > Learning Resources
+    fit_terms: [explained, learning, learn, education, students, teacher, study]
+    weight: 0.9
+    note: good fit for explain-to-a-friend teaching material
+  - name: Business & Money > Small Business & Entrepreneurship
+    fit_terms: [automation, workflow, productivity, business, authors, marketing]
+    weight: 0.9
+    note: readers automating small businesses and writing workflows
+  - name: Health & Fitness > Healthcare Careers
+    fit_terms: [nurses, healthcare, caregivers, hospital, shift]
+    weight: 0.85
+    note: for the healthcare-worker chapters (education only, never medical advice)
+  - name: Self-Help > Time Management & Productivity
+    fit_terms: [productivity, adhd, focus, habits, low energy]
+    weight: 0.8
+    note: gentle life-admin angle for the productivity chapter
